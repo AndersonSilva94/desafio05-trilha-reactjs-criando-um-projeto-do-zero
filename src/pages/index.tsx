@@ -34,31 +34,38 @@ export default function Home(): JSX.Element {
         <title>Home | Spacetraveling</title>
       </Head>
 
-      <main>
-        <div>
+      <main className={commonStyles.maxWidthContainer}>
+        <div className={`${styles.posts} ${commonStyles.maxWidthContent}`}>
           <a href="http://google.com">
             <strong>Como utilizar Hooks</strong>
             <p>Pensando em sincronização em vez de ciclos de vida.</p>
-            <time>
-              <FiCalendar />
-              15 Mar 2021
-            </time>
-            <span>
-              <FiUser />
-              Joseph Oliveira
-            </span>
+            <div className={styles.postsInfo}>
+              <time>
+                <FiCalendar />
+                15 Mar 2021
+              </time>
+              <span>
+                <FiUser />
+                Joseph Oliveira
+              </span>
+            </div>
           </a>
           <a href="http://google.com">
-            <strong>Como utilizar Hooks</strong>
-            <p>Pensando em sincronização em vez de ciclos de vida.</p>
-            <time>
-              <FiCalendar />
-              15 Mar 2021
-            </time>
-            <span>
-              <FiUser />
-              Joseph Oliveira
-            </span>
+            <strong>Criando um app CRA do zero</strong>
+            <p>
+              Tudo sobre como criar a sua primeira aplicação utilizando Create
+              React App.
+            </p>
+            <div className={styles.postsInfo}>
+              <time>
+                <FiCalendar />
+                19 Abr 2021
+              </time>
+              <span>
+                <FiUser />
+                Danilo Vieira
+              </span>
+            </div>
           </a>
           <button type="button">Carregar mais posts</button>
         </div>
