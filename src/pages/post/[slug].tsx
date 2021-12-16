@@ -5,6 +5,7 @@ import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { RichText } from 'prismic-dom';
+import { useRouter } from 'next/router';
 import { getPrismicClient } from '../../services/prismic';
 
 import commonStyles from '../../styles/common.module.scss';
@@ -32,6 +33,11 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Carregando...</div>;
+  }
+
   function calcTimeReading(): number {
     return post.data.content.reduce((_acc, actual) => {
       const elements = `${actual.heading} ${RichText.asHtml(actual.body)}`;
