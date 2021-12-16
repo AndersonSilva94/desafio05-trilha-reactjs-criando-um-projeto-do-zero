@@ -32,6 +32,14 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
+  function calcTimeReading(): number {
+    return post.data.content.reduce((_acc, actual) => {
+      const elements = `${actual.heading} ${RichText.asHtml(actual.body)}`;
+      const calcTime = Math.ceil(elements.split(' ').length / 150);
+      return calcTime;
+    }, 0);
+  }
+
   return (
     <>
       <Head>
@@ -58,7 +66,8 @@ export default function Post({ post }: PostProps): JSX.Element {
               {post.data.author}
             </span>
             <span>
-              <FiClock />4 min
+              <FiClock />
+              {calcTimeReading()} min
             </span>
           </div>
           <div className={styles.articlePost}>
