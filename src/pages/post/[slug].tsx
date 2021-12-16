@@ -33,6 +33,9 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
+  // lógicas baseadas no repositório de gutakeda
+  // link: https://github.com/gutakeda/ignite-reactjs-criando-um-projeto-do-zero
+
   const router = useRouter();
   if (router.isFallback) {
     return <div>Carregando...</div>;
