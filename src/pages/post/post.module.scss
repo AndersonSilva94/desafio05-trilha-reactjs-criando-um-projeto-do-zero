@@ -1,1 +1,31 @@
-// TODO
+.banner {
+  width: 100%;
+}
+
+.post {
+  margin: 1rem auto;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .articlePost {
+    margin: 1.5rem 0;
+
+    article {
+      h2 {
+        margin-bottom: 1.2rem;
+      }
+
+      & + article {
+        margin-top: 2rem;
+      }
+    }
+
+    .contentPost {
+      text-align: justify;
+      line-height: 1.5rem;
+    }
+  }
+}

@@ -21,26 +21,6 @@
       line-height: 1.21rem;
     }
 
-    .postsInfo {
-      display: flex;
-      margin-top: 0.8rem;
-
-      time, span {
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        color: var(--info);
-
-        svg {
-          margin-right: 0.3rem;
-        }
-      }
-
-      span {
-        margin-left: 1.2rem;
-      }
-    }
-
     &:hover strong {
       color: var(--highlight);
     }
