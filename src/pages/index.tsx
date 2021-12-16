@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { FiCalendar, FiUser } from 'react-icons/fi';
@@ -30,6 +31,33 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps): JSX.Element {
+  const [postsArr, setPostsArr] = useState(postsPagination.results);
+  const [pages, setPages] = useState(postsPagination.next_page);
+
+  async function handleMorePostsButton(): Promise<void> {
+    if (pages) {
+      const fetchApi = await fetch(postsPagination.next_page);
+      const responseApi = await fetchApi.json();
+
+      // console.log(responseApi);
+
+      const results = responseApi.results.map(post => {
+        return {
+          uid: post.uid,
+          data: {
+            title: post.data.title,
+            subtitle: post.data.subtitle,
+            author: post.data.author,
+          },
+          first_publication_date: post.first_publication_date,
+        };
+      });
+
+      setPostsArr([...postsArr, ...results]);
+      setPages(responseApi.next_page);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -38,7 +66,7 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
 
       <main className={commonStyles.maxWidthContainer}>
         <div className={`${styles.posts} ${commonStyles.maxWidthContent}`}>
-          {postsPagination.results.map(post => (
+          {postsArr.map(post => (
             <Link key={post.uid} href={`/post/${post.uid}`}>
               <a>
                 <strong>{post.data.title}</strong>
@@ -62,7 +90,11 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
               </a>
             </Link>
           ))}
-          <button type="button">Carregar mais posts</button>
+          {pages && (
+            <button onClick={handleMorePostsButton} type="button">
+              Carregar mais posts
+            </button>
+          )}
         </div>
       </main>
     </>
@@ -79,7 +111,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  console.log(postsResponse);
+  // console.log(postsResponse);
 
   const posts = postsResponse.results.map(post => {
     return {
